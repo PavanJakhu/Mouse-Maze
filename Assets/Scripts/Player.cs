@@ -9,10 +9,13 @@ public class Player : MonoBehaviour
     public float gravity = 20.0F;
 	public CharacterController controller;
 
-    private Text scoreText;
     private Vector3 moveDirection = Vector3.zero;
     private MazeCell currentCell;
+
+    private Text bombText;
+    private Text scoreText;
     private int numBombs;
+    private int score;
 
     public void SetLocation(MazeCell cell)
     {
@@ -26,7 +29,8 @@ public class Player : MonoBehaviour
 		//controller = GetComponent<CharacterController>();
         numBombs = 0;
 		//DontDestroyOnLoad(transform.gameObject);
-        scoreText = GameObject.Find("In-game Canvas(Clone)/Bombs").GetComponent<Text>();
+        bombText = GameObject.Find("In-game Canvas(Clone)/Bombs").GetComponent<Text>();
+        scoreText = GameObject.Find("In-game Canvas(Clone)/Score").GetComponent<Text>();
 	}
 
     void Update()
@@ -52,9 +56,17 @@ public class Player : MonoBehaviour
     {
         switch (hit.gameObject.tag)
         {
-            case "Bomb":
-                numBombs++;
-                scoreText.text = "Bombs: " + numBombs;
+            case "Collectible":
+                if (hit.gameObject.name == "Bomb(Clone)")
+                {
+                    numBombs++;
+                    bombText.text = "Bombs: " + numBombs;
+                }
+                else if (hit.gameObject.name == "Cheese(Clone)")
+                {
+                    score += 5;
+                    scoreText.text = "Score: " + score;
+                }
                 Destroy(hit.gameObject);
                 break;
             case "Trap":

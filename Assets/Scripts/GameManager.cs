@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public Traps trapPrefab;
     public Bombs bombPrefab;
     public Cup cupPrefab;
+    public Cheese cheesePrefab;
     public Canvas menuCanvasPrefab;
     public Canvas inGameCanvasPrefab;
 
@@ -39,6 +40,9 @@ public class GameManager : MonoBehaviour
 
     private Cup cupInstance;
     public Cup CupInstance { get { return cupInstance; } set { cupInstance = value; } }
+
+    private Cheese[] cheeseInstance = new Cheese[5];
+    public Cheese[] CheeseInstance { get { return cheeseInstance; } set { cheeseInstance = value; } }
 
     private bool inGame;
 
@@ -73,9 +77,17 @@ public class GameManager : MonoBehaviour
         endInstance = Instantiate(endPrefab) as End;
         endInstance.SetLocation(mazeInstance.GetCell(mazeInstance.endCoords));
 
-        int directionX = 0, directionY = 1;
         trapInstance = Instantiate(trapPrefab) as Traps;
-        trapInstance.SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates + new IntVector2(directionX, directionY)));
+        trapInstance.SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
+
+        cupInstance = Instantiate(cupPrefab) as Cup;
+        cupInstance.SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
+
+        for (int i = 0; i < cheeseInstance.Length; i++)
+        {
+            cheeseInstance[i] = Instantiate(cheesePrefab) as Cheese;
+            cheeseInstance[i].SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
+        }
 
         for (int i = 0; i < bombInstance.Length; i++)
         {
@@ -85,9 +97,6 @@ public class GameManager : MonoBehaviour
         bombInstance[1].SetLocation(mazeInstance.GetCell(new IntVector2(0, mazeInstance.size.z - 1)));
         bombInstance[2].SetLocation(mazeInstance.GetCell(new IntVector2(mazeInstance.size.x - 1, 0)));
         bombInstance[3].SetLocation(mazeInstance.GetCell(new IntVector2(mazeInstance.size.x - 1, mazeInstance.size.z - 1)));
-
-        cupInstance = Instantiate(cupPrefab) as Cup;
-        cupInstance.SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
     }
 
     private void RestartGame()
