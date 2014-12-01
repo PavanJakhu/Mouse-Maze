@@ -931,7 +931,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae0fcacd7d8c464bb488d4784e2d893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameState: 0
   camera: {fileID: 100000, guid: 4413e656933c9fb43a4cee7f1eb00b9d, type: 2}
   mazePrefab: {fileID: 11400000, guid: a2395bb8a91944f21b621f2614d6db99, type: 2}
   playerPrefab: {fileID: 11400000, guid: 67d7fa0cfc04f8d4cbc58e90dad0662f, type: 2}

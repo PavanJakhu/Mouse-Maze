@@ -5,12 +5,12 @@ using System.Collections;
 
 public enum GameState
 {
-    Menu, NewPlay, ResumePlay
+    Menu, NewPlay, ResumePlay, Lose
 }
 
 public class GameManager : MonoBehaviour
 {
-    public GameState gameState;
+    public static GameState gameState;
     public GameObject camera;
 
     public Maze mazePrefab;
@@ -56,10 +56,10 @@ public class GameManager : MonoBehaviour
             inGame = true;
             StartCoroutine(BeginGame());
         }
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    RestartGame();
-        //}
+        if (gameState == GameState.Lose)
+        {
+            Application.LoadLevel(1);
+        }
     }
 
     private IEnumerator BeginGame()
@@ -80,30 +80,17 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < bombInstance.Length; i++)
         {
             bombInstance[i] = Instantiate(bombPrefab) as Bombs;
-            switch (i)
-            {
-                case 0:
-                    bombInstance[i].SetLocation(mazeInstance.GetCell(new IntVector2(0, 0)));
-                    break;
-                case 1:
-                    bombInstance[i].SetLocation(mazeInstance.GetCell(new IntVector2(0, mazeInstance.size.z - 1)));
-                    break;
-                case 2:
-                    bombInstance[i].SetLocation(mazeInstance.GetCell(new IntVector2(mazeInstance.size.x - 1, 0)));
-                    break;
-                case 3:
-                    bombInstance[i].SetLocation(mazeInstance.GetCell(new IntVector2(mazeInstance.size.x - 1, mazeInstance.size.z - 1)));
-                    break;
-                default:
-                    break;
-            }
         }
+        bombInstance[0].SetLocation(mazeInstance.GetCell(new IntVector2(0, 0)));
+        bombInstance[1].SetLocation(mazeInstance.GetCell(new IntVector2(0, mazeInstance.size.z - 1)));
+        bombInstance[2].SetLocation(mazeInstance.GetCell(new IntVector2(mazeInstance.size.x - 1, 0)));
+        bombInstance[3].SetLocation(mazeInstance.GetCell(new IntVector2(mazeInstance.size.x - 1, mazeInstance.size.z - 1)));
 
         cupInstance = Instantiate(cupPrefab) as Cup;
         cupInstance.SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
     }
 
-    public void RestartGame()
+    private void RestartGame()
     {
         StopAllCoroutines();
         if (mazeInstance != null)

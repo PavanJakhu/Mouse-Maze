@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
 	{
 		//controller = GetComponent<CharacterController>();
         numBombs = 0;
-		DontDestroyOnLoad(transform.gameObject);
+		//DontDestroyOnLoad(transform.gameObject);
         scoreText = GameObject.Find("In-game Canvas(Clone)/Bombs").GetComponent<Text>();
 	}
 
@@ -33,7 +33,6 @@ public class Player : MonoBehaviour
     {
 
         transform.Rotate(0, Input.GetAxis("Horizontal") * rotateSpeed, 0);
-
 
         if (controller.isGrounded)
         {
@@ -60,7 +59,8 @@ public class Player : MonoBehaviour
                 break;
             case "Trap":
                 Destroy(hit.gameObject);
-                Debug.Log("You lose!");
+                if (numBombs > 0) { numBombs--; }
+                else { GameManager.gameState = GameState.Lose; }
                 break;
             case "End":
                 Destroy(hit.gameObject);
@@ -68,12 +68,6 @@ public class Player : MonoBehaviour
                 break;
             default:
                 break;
-        }
-
-        if (hit.gameObject.name == "Cup(Clone)")
-        {
-            Destroy(hit.gameObject);
-            Debug.Log("You lose!");
         }
     }
 }

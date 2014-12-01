@@ -99,7 +99,7 @@ public class CreateAndLoadXML : MonoBehaviour
 
     public void OnResumeClick()
     {
-        if (gameManager.gameState == GameState.Menu)
+        if (GameManager.gameState == GameState.Menu)
         {
             // Load UserData into myData
             LoadXML();
