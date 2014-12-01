@@ -134,9 +134,9 @@ public class GameManager : MonoBehaviour
 
     public void OnPlayClick()
     {
-        gameState = GameState.NewPlay;
         Destroy(GameObject.Find("Camera(Clone)"));
         Destroy(GameObject.Find("Menu Canvas"));
         Instantiate(inGameCanvasPrefab);
+        gameState = GameState.NewPlay;
     }
 }

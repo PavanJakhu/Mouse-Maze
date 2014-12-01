@@ -8,7 +8,8 @@ public class Player : MonoBehaviour
     public float jumpSpeed = 8.0F;
     public float gravity = 20.0F;
 	public CharacterController controller;
-	
+
+    private Text scoreText;
     private Vector3 moveDirection = Vector3.zero;
     private MazeCell currentCell;
     private int numBombs;
@@ -25,7 +26,7 @@ public class Player : MonoBehaviour
 		//controller = GetComponent<CharacterController>();
         numBombs = 0;
 		DontDestroyOnLoad(transform.gameObject);
-
+        scoreText = GameObject.Find("In-game Canvas(Clone)/Bombs").GetComponent<Text>();
 	}
 
     void Update()
@@ -54,7 +55,7 @@ public class Player : MonoBehaviour
         {
             case "Bomb":
                 numBombs++;
-
+                scoreText.text = "Bombs: " + numBombs;
                 Destroy(hit.gameObject);
                 break;
             case "Trap":
