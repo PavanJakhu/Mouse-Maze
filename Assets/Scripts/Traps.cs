@@ -19,6 +19,6 @@ public class Traps : MonoBehaviour
     public void SetLocation(MazeCell cell)
     {
         transform.localPosition = cell.transform.localPosition;
-        transform.localPosition += new Vector3(0f, 0.5f, 0f);
+        transform.localPosition += new Vector3(0f, 0.1f, 0f);
     }
 }
