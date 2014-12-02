@@ -1,0 +1,189 @@
+fileFormatVersion: 2
+guid: 783417723d42d4a4b9f24630ad3a45ec
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: DrawCall_293
+    100002: DrawCall_294
+    100004: DrawCall_296
+    100006: DrawCall_297
+    100008: DrawCall_298
+    100010: DrawCall_300
+    100012: Object002
+    100014: Object005
+    100016: Object006
+    100018: //RootNode
+    100020: Trap_1
+    100022: Trap_1 1
+    100024: Trap_3
+    100026: Trap_4
+    100028: Trap_Center
+    100030: Trap_Cross
+    100032: Trap_LeftSide
+    100034: Trap_RightSide
+    400000: DrawCall_293
+    400002: DrawCall_294
+    400004: DrawCall_296
+    400006: DrawCall_297
+    400008: DrawCall_298
+    400010: DrawCall_300
+    400012: Object002
+    400014: Object005
+    400016: Object006
+    400018: //RootNode
+    400020: Trap_1
+    400022: Trap_1 1
+    400024: Trap_3
+    400026: Trap_4
+    400028: Trap_Center
+    400030: Trap_Cross
+    400032: Trap_LeftSide
+    400034: Trap_RightSide
+    2300000: DrawCall_293
+    2300002: DrawCall_296
+    2300004: DrawCall_297
+    2300006: DrawCall_298
+    2300008: DrawCall_300
+    2300010: Object002
+    2300012: Object005
+    2300014: Object006
+    2300016: Trap_1
+    2300018: Trap_1 1
+    2300020: Trap_3
+    2300022: Trap_4
+    2300024: Trap_Center
+    2300026: Trap_Cross
+    2300028: Trap_LeftSide
+    2300030: Trap_RightSide
+    3300000: DrawCall_293
+    3300002: DrawCall_296
+    3300004: DrawCall_297
+    3300006: DrawCall_298
+    3300008: DrawCall_300
+    3300010: Object002
+    3300012: Object005
+    3300014: Object006
+    3300016: Trap_1
+    3300018: Trap_1 1
+    3300020: Trap_3
+    3300022: Trap_4
+    3300024: Trap_Center
+    3300026: Trap_Cross
+    3300028: Trap_LeftSide
+    3300030: Trap_RightSide
+    4300000: DrawCall_293
+    4300002: Object005
+    4300004: Object006
+    4300006: DrawCall_296
+    4300008: DrawCall_297
+    4300010: Object002
+    4300012: DrawCall_298
+    4300014: DrawCall_300
+    4300016: Trap_Cross
+    4300018: Trap_1
+    4300020: Trap_1
+    4300022: Trap_LeftSide
+    4300024: Trap_Center
+    4300026: Trap_4
+    4300028: Trap_3
+    4300030: Trap_RightSide
+    7400000: Animation
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Animation
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Trap_3
+        weight: 1
+      - path: Trap_Center
+        weight: 1
+      - path: Trap_Center/Trap_4
+        weight: 1
+      - path: Trap_Cross
+        weight: 1
+      - path: Trap_Cross/Trap_1
+        weight: 1
+      - path: Trap_Cross/Trap_1 1
+        weight: 1
+      - path: Trap_LeftSide
+        weight: 1
+      - path: Trap_RightSide
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .5
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 1
+  userData: 
