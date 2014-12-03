@@ -193,7 +193,6 @@ public class CreateAndLoadXML : MonoBehaviour
                 gameManager.BombInstance[3] = Instantiate(gameManager.bombPrefab) as Bombs;
                 gameManager.BombInstance[3].transform.position = new Vector3(mazeData.bombPosition.four.x, mazeData.bombPosition.four.y, mazeData.bombPosition.four.z);
 
-                Destroy(GameObject.Find("Camera(Clone)"));
                 Destroy(GameObject.Find("Menu Canvas"));
                 Instantiate(gameManager.inGameCanvasPrefab);
             }

@@ -11,7 +11,6 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     public static GameState gameState;
-    public GameObject camera;
 
     public Maze mazePrefab;
     public Player playerPrefab;
@@ -22,6 +21,7 @@ public class GameManager : MonoBehaviour
     public Cheese cheesePrefab;
     public Canvas menuCanvasPrefab;
     public Canvas inGameCanvasPrefab;
+    public Canvas loadingCanvasPrefab;
 
     private Maze mazeInstance;
     public Maze MazeInstance { get { return mazeInstance; } set { mazeInstance = value; } }
@@ -45,22 +45,51 @@ public class GameManager : MonoBehaviour
     public Cheese[] CheeseInstance { get { return cheeseInstance; } set { cheeseInstance = value; } }
 
     private bool inGame;
+    private Text timer;
+    private int seconds, minutes;
+    private float counter;
 
     private void Start()
     {
-        gameState = GameState.Menu;
+        //gameState = GameState.Menu;
+        OnPlayClick();
         inGame = false;
-        Instantiate(camera);
+        seconds = minutes = 0;
     }
 
     private void Update()
     {
-        if (gameState == GameState.NewPlay && !inGame)
+        if (gameState == GameState.NewPlay)
         {
+            if (!inGame)
+            {
+                timer = GameObject.Find("In-game Canvas(Clone)/Timer").GetComponent<Text>();
+                StartCoroutine(BeginGame());
+            }
+
+            counter += Time.deltaTime;
+            if (counter >= 1.0f)
+            {
+                seconds++;
+                if (seconds >= 60)
+                {
+                    seconds = 0;
+                    minutes++;
+                }
+                counter = 0;
+            }
+            if (seconds >= 0 && seconds <= 9)
+            {
+                timer.text = "Time: " + minutes + ":0" + seconds;
+            }
+            else
+            {
+                timer.text = "Time: " + minutes + ":" + seconds;
+            }
+
             inGame = true;
-            StartCoroutine(BeginGame());
         }
-        if (gameState == GameState.Lose)
+        else if (gameState == GameState.Lose)
         {
             Application.LoadLevel(1);
         }
@@ -99,38 +128,37 @@ public class GameManager : MonoBehaviour
         bombInstance[3].SetLocation(mazeInstance.GetCell(new IntVector2(mazeInstance.size.x - 1, mazeInstance.size.z - 1)));
     }
 
-    private void RestartGame()
-    {
-        StopAllCoroutines();
-        if (mazeInstance != null)
-        {
-            Destroy(mazeInstance.gameObject);
-        }
-        if (playerInstance != null)
-        {
-            Destroy(playerInstance.gameObject);
-        }
-        if (endInstance != null)
-        {
-            Destroy(endInstance.gameObject);
-        }
-        if (trapInstance != null)
-        {
-            Destroy(trapInstance.gameObject);
-        }
-        for (int i = 0; i < bombInstance.Length; i++)
-        {
-            if (bombInstance[i] != null)
-            {
-                Destroy(bombInstance[i].gameObject);
-            }
-        }
-        StartCoroutine(BeginGame());
-    }
+    //private void RestartGame()
+    //{
+    //    StopAllCoroutines();
+    //    if (mazeInstance != null)
+    //    {
+    //        Destroy(mazeInstance.gameObject);
+    //    }
+    //    if (playerInstance != null)
+    //    {
+    //        Destroy(playerInstance.gameObject);
+    //    }
+    //    if (endInstance != null)
+    //    {
+    //        Destroy(endInstance.gameObject);
+    //    }
+    //    if (trapInstance != null)
+    //    {
+    //        Destroy(trapInstance.gameObject);
+    //    }
+    //    for (int i = 0; i < bombInstance.Length; i++)
+    //    {
+    //        if (bombInstance[i] != null)
+    //        {
+    //            Destroy(bombInstance[i].gameObject);
+    //        }
+    //    }
+    //    StartCoroutine(BeginGame());
+    //}
 
     public void OnPlayClick()
     {
-        Destroy(GameObject.Find("Camera(Clone)"));
         Destroy(GameObject.Find("Menu Canvas"));
         Instantiate(inGameCanvasPrefab);
         gameState = GameState.NewPlay;
