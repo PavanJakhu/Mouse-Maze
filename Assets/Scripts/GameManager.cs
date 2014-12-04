@@ -5,7 +5,7 @@ using System.Collections;
 
 public enum GameState
 {
-    Menu, Loading, NewPlay, ResumePlay, Lose
+    Menu, Loading, NewPlay, ResumePlay, Lose, Win
 }
 
 public class GameManager : MonoBehaviour
@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         gameState = GameState.Menu;
+        menuCanvasInstance = GameObject.Find("Menu Canvas").GetComponent<Canvas>();
         //OnPlayClick();
         loading = false;
         loadedTimer = false;
@@ -123,13 +124,35 @@ public class GameManager : MonoBehaviour
             case GameState.ResumePlay:
                 if (!loadedTimer)
                 {
-                    Destroy(loadingCanvasInstance.gameObject);
                     timer = GameObject.Find("In-game Canvas(Clone)/Timer").GetComponent<Text>();
                     loadedTimer = true;
+                }
+
+                counter += Time.deltaTime;
+                if (counter >= 1.0f)
+                {
+                    seconds++;
+                    if (seconds >= 60)
+                    {
+                        seconds = 0;
+                        minutes++;
+                    }
+                    counter = 0;
+                }
+                if (seconds >= 0 && seconds <= 9)
+                {
+                    timer.text = "Time: " + minutes + ":0" + seconds;
+                }
+                else
+                {
+                    timer.text = "Time: " + minutes + ":" + seconds;
                 }
                 break;
             case GameState.Lose:
                 Application.LoadLevel(1);
+                break;
+            case GameState.Win:
+                Application.LoadLevel(2);
                 break;
             default:
                 break;
@@ -142,6 +165,7 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(mazeInstance.Generate());
 
         inGameCanvasInstance = Instantiate(inGameCanvasPrefab) as Canvas;
+        Destroy(GameObject.Find("Camera"));
 
         playerInstance = Instantiate(playerPrefab) as Player;
         playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.startCoords));

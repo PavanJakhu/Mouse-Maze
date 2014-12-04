@@ -11,7 +11,7 @@ using System.Text;
 
 public class CreateAndLoadXML : MonoBehaviour
 {
-    public GameObject savedMaze;
+    public Maze savedMaze;
 
     private GameManager gameManager;
     private string _FileLocation, _FileName, _data;
@@ -166,7 +166,7 @@ public class CreateAndLoadXML : MonoBehaviour
                 // Cast to type (UserData) so returned object is converted to correct type 
                 mazeData = (MazeData)DeserializeObject(_data);
 
-                gameManager.MazeInstance = Instantiate(savedMaze) as Maze;
+                gameManager.MazeInstance = Instantiate(savedMaze.gameObject) as Maze;
                 gameManager.PlayerInstance = Instantiate(gameManager.playerPrefab) as Player;
                 gameManager.PlayerInstance.transform.position = new Vector3(mazeData.playerPosition.x, mazeData.playerPosition.y, mazeData.playerPosition.z);
                 gameManager.EndInstance = Instantiate(gameManager.endPrefab) as End;

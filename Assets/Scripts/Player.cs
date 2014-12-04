@@ -24,8 +24,8 @@ public class Player : MonoBehaviour
     private AnimatorStateInfo layer2CurrentState;	// a reference to the current state of the animator, used for layer 2
     private CapsuleCollider col;					// a reference to the capsule collider of the character
 
+    private AudioSource audioSource;
     private MazeCell currentCell;
-
     private Text bombText;
     private Text scoreText;
     private int numBombs;
@@ -86,16 +86,30 @@ public class Player : MonoBehaviour
                     score += 5;
                     scoreText.text = "Score: " + score;
                 }
+
+                if (hit.gameObject.audio != null)
+                {
+                    AudioSource.PlayClipAtPoint(hit.gameObject.audio.clip, hit.transform.position);
+                }
                 Destroy(hit.gameObject);
                 break;
             case "Trap":
-                Destroy(hit.gameObject);
-                if (numBombs > 0) { numBombs--; }
+                if (numBombs > 0)
+                {
+                    numBombs--;
+                    bombText.text = "Bombs: " + numBombs;
+                }
                 else { GameManager.gameState = GameState.Lose; }
+
+                if (hit.gameObject.audio != null)
+                {
+                    AudioSource.PlayClipAtPoint(hit.gameObject.audio.clip, hit.transform.position);
+                }
+                Destroy(hit.gameObject);
                 break;
             case "End":
                 Destroy(hit.gameObject);
-                Debug.Log("You win!");
+                GameManager.gameState = GameState.Win;
                 break;
             default:
                 break;
