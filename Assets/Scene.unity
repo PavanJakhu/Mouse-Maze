@@ -394,8 +394,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: .960784316, g: .960784316, b: .960784316, a: 1}
-    m_PressedColor: {r: .784313738, g: .784313738, b: .784313738, a: 1}
+    m_HighlightedColor: {r: .749019623, g: .749019623, b: .749019623, a: 1}
+    m_PressedColor: {r: .396078438, g: .396078438, b: .396078438, a: 1}
     m_DisabledColor: {r: .784313738, g: .784313738, b: .784313738, a: .501960814}
     m_ColorMultiplier: 1
     m_FadeDuration: .100000001
@@ -844,7 +844,9 @@ MonoBehaviour:
   cheesePrefab: {fileID: 11400000, guid: fa0874b6fd56c884dbc1114424a50365, type: 2}
   menuCanvasPrefab: {fileID: 208017762}
   inGameCanvasPrefab: {fileID: 22300000, guid: fe5e98898087f304aa8b129d887defd5, type: 2}
-  loadingCanvasPrefab: {fileID: 0}
+  loadingCanvasPrefab: {fileID: 22300000, guid: a521a6b4a05a6a64aa9a9db33a028271,
+    type: 2}
+  saved: 0
 --- !u!4 &1464554643
 Transform:
   m_ObjectHideFlags: 0
@@ -868,7 +870,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec324efa4b5a5b46b64268b234b089b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  savedMaze: {fileID: 101604, guid: de2bb08dc30822846b5c41b20e854b8c, type: 2}
+  savedMaze: {fileID: 100000, guid: eb46c437991ad024491abfb1f429da2c, type: 2}
 --- !u!1 &1539490142
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,6 +1101,54 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400014, guid: 13743aa95a9327045b6e213b2e6be823, type: 2}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: .75
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400014, guid: 13743aa95a9327045b6e213b2e6be823, type: 2}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: .75
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400014, guid: 13743aa95a9327045b6e213b2e6be823, type: 2}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: .75
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400014, guid: 13743aa95a9327045b6e213b2e6be823, type: 2}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: .397058845
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400014, guid: 13743aa95a9327045b6e213b2e6be823, type: 2}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: .397058845
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400014, guid: 13743aa95a9327045b6e213b2e6be823, type: 2}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: .397058845
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400008, guid: 13743aa95a9327045b6e213b2e6be823, type: 2}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: .749019623
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400008, guid: 13743aa95a9327045b6e213b2e6be823, type: 2}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: .749019623
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400008, guid: 13743aa95a9327045b6e213b2e6be823, type: 2}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: .749019623
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400008, guid: 13743aa95a9327045b6e213b2e6be823, type: 2}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: .396078438
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400008, guid: 13743aa95a9327045b6e213b2e6be823, type: 2}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: .396078438
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400008, guid: 13743aa95a9327045b6e213b2e6be823, type: 2}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: .396078438
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 13743aa95a9327045b6e213b2e6be823, type: 2}
   m_RootGameObject: {fileID: 208017758}
@@ -1162,8 +1212,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: .960784316, g: .960784316, b: .960784316, a: 1}
-    m_PressedColor: {r: .784313738, g: .784313738, b: .784313738, a: 1}
+    m_HighlightedColor: {r: .75, g: .75, b: .75, a: 1}
+    m_PressedColor: {r: .397058845, g: .397058845, b: .397058845, a: 1}
     m_DisabledColor: {r: .784313738, g: .784313738, b: .784313738, a: .501960814}
     m_ColorMultiplier: 1
     m_FadeDuration: .100000001
