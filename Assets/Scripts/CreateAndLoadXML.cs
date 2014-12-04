@@ -57,6 +57,7 @@ public class CreateAndLoadXML : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.O))
         {
+            gameManager.saved = true;
             PrefabUtility.CreatePrefab("Assets/Prefabs/Saved/Saved_Maze.prefab", gameManager.MazeInstance.gameObject);
 
             mazeData.playerPosition.x = gameManager.PlayerInstance.transform.position.x;
@@ -193,8 +194,9 @@ public class CreateAndLoadXML : MonoBehaviour
                 gameManager.BombInstance[3] = Instantiate(gameManager.bombPrefab) as Bombs;
                 gameManager.BombInstance[3].transform.position = new Vector3(mazeData.bombPosition.four.x, mazeData.bombPosition.four.y, mazeData.bombPosition.four.z);
 
-                Destroy(GameObject.Find("Menu Canvas"));
-                Instantiate(gameManager.inGameCanvasPrefab);
+                Destroy(gameManager.MenuCanvasInstance.gameObject);
+                gameManager.InGameCanvasInstance = Instantiate(gameManager.inGameCanvasPrefab) as Canvas;
+                GameManager.gameState = GameState.ResumePlay;
             }
         }
     }

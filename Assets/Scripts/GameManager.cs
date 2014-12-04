@@ -5,7 +5,7 @@ using System.Collections;
 
 public enum GameState
 {
-    Menu, NewPlay, ResumePlay, Lose
+    Menu, Loading, NewPlay, ResumePlay, Lose
 }
 
 public class GameManager : MonoBehaviour
@@ -44,54 +44,95 @@ public class GameManager : MonoBehaviour
     private Cheese[] cheeseInstance = new Cheese[5];
     public Cheese[] CheeseInstance { get { return cheeseInstance; } set { cheeseInstance = value; } }
 
-    private bool inGame;
+    private Canvas inGameCanvasInstance;
+    public Canvas InGameCanvasInstance { get { return inGameCanvasInstance; } set { inGameCanvasInstance = value; } }
+
+    private Canvas menuCanvasInstance;
+    public Canvas MenuCanvasInstance { get { return menuCanvasInstance; } set { menuCanvasInstance = value; } }
+
+    public bool saved;
+
+    private Canvas loadingCanvasInstance;
+
+    private bool resumeActive;
+    private bool loading;
+    private bool loadedTimer;
     private Text timer;
     private int seconds, minutes;
     private float counter;
 
     private void Start()
     {
-        //gameState = GameState.Menu;
-        OnPlayClick();
-        inGame = false;
+        gameState = GameState.Menu;
+        //OnPlayClick();
+        loading = false;
+        loadedTimer = false;
         seconds = minutes = 0;
     }
 
     private void Update()
     {
-        if (gameState == GameState.NewPlay)
+        switch (gameState)
         {
-            if (!inGame)
-            {
-                timer = GameObject.Find("In-game Canvas(Clone)/Timer").GetComponent<Text>();
-                StartCoroutine(BeginGame());
-            }
-
-            counter += Time.deltaTime;
-            if (counter >= 1.0f)
-            {
-                seconds++;
-                if (seconds >= 60)
+            case GameState.Menu:
+                if (System.IO.File.Exists("Assets/Game Data/SaveData.xml"))
                 {
-                    seconds = 0;
-                    minutes++;
+                    GameObject.Find("Menu Canvas/Resume Button").GetComponent<Button>().interactable = true;
+                    resumeActive = true;
                 }
-                counter = 0;
-            }
-            if (seconds >= 0 && seconds <= 9)
-            {
-                timer.text = "Time: " + minutes + ":0" + seconds;
-            }
-            else
-            {
-                timer.text = "Time: " + minutes + ":" + seconds;
-            }
+                loading = false;
+                loadedTimer = false;
+                seconds = minutes = 0;
+                break;
+            case GameState.Loading:
+                if (!loading)
+                {
+                    loadingCanvasInstance = Instantiate(loadingCanvasPrefab) as Canvas;
+                    StartCoroutine(BeginGame());
+                    loading = true;
+                }
+                break;
+            case GameState.NewPlay:
+                if (!loadedTimer)
+                {
+                    Destroy(loadingCanvasInstance.gameObject);
+                    timer = GameObject.Find("In-game Canvas(Clone)/Timer").GetComponent<Text>();
+                    loadedTimer = true;
+                }
 
-            inGame = true;
-        }
-        else if (gameState == GameState.Lose)
-        {
-            Application.LoadLevel(1);
+                counter += Time.deltaTime;
+                if (counter >= 1.0f)
+                {
+                    seconds++;
+                    if (seconds >= 60)
+                    {
+                        seconds = 0;
+                        minutes++;
+                    }
+                    counter = 0;
+                }
+                if (seconds >= 0 && seconds <= 9)
+                {
+                    timer.text = "Time: " + minutes + ":0" + seconds;
+                }
+                else
+                {
+                    timer.text = "Time: " + minutes + ":" + seconds;
+                }
+                break;
+            case GameState.ResumePlay:
+                if (!loadedTimer)
+                {
+                    Destroy(loadingCanvasInstance.gameObject);
+                    timer = GameObject.Find("In-game Canvas(Clone)/Timer").GetComponent<Text>();
+                    loadedTimer = true;
+                }
+                break;
+            case GameState.Lose:
+                Application.LoadLevel(1);
+                break;
+            default:
+                break;
         }
     }
 
@@ -100,23 +141,30 @@ public class GameManager : MonoBehaviour
         mazeInstance = Instantiate(mazePrefab) as Maze;
         yield return StartCoroutine(mazeInstance.Generate());
 
+        inGameCanvasInstance = Instantiate(inGameCanvasPrefab) as Canvas;
+
         playerInstance = Instantiate(playerPrefab) as Player;
         playerInstance.SetLocation(mazeInstance.GetCell(mazeInstance.startCoords));
+        yield return 0;
 
         endInstance = Instantiate(endPrefab) as End;
         endInstance.SetLocation(mazeInstance.GetCell(mazeInstance.endCoords));
+        yield return 0;
 
         trapInstance = Instantiate(trapPrefab) as Traps;
         trapInstance.SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
+        yield return 0;
 
         cupInstance = Instantiate(cupPrefab) as Cup;
         cupInstance.SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
+        yield return 0;
 
         for (int i = 0; i < cheeseInstance.Length; i++)
         {
             cheeseInstance[i] = Instantiate(cheesePrefab) as Cheese;
             cheeseInstance[i].SetLocation(mazeInstance.GetCell(mazeInstance.RandomCoordinates));
         }
+        yield return 0;
 
         for (int i = 0; i < bombInstance.Length; i++)
         {
@@ -126,41 +174,14 @@ public class GameManager : MonoBehaviour
         bombInstance[1].SetLocation(mazeInstance.GetCell(new IntVector2(0, mazeInstance.size.z - 1)));
         bombInstance[2].SetLocation(mazeInstance.GetCell(new IntVector2(mazeInstance.size.x - 1, 0)));
         bombInstance[3].SetLocation(mazeInstance.GetCell(new IntVector2(mazeInstance.size.x - 1, mazeInstance.size.z - 1)));
-    }
+        yield return 0;
 
-    //private void RestartGame()
-    //{
-    //    StopAllCoroutines();
-    //    if (mazeInstance != null)
-    //    {
-    //        Destroy(mazeInstance.gameObject);
-    //    }
-    //    if (playerInstance != null)
-    //    {
-    //        Destroy(playerInstance.gameObject);
-    //    }
-    //    if (endInstance != null)
-    //    {
-    //        Destroy(endInstance.gameObject);
-    //    }
-    //    if (trapInstance != null)
-    //    {
-    //        Destroy(trapInstance.gameObject);
-    //    }
-    //    for (int i = 0; i < bombInstance.Length; i++)
-    //    {
-    //        if (bombInstance[i] != null)
-    //        {
-    //            Destroy(bombInstance[i].gameObject);
-    //        }
-    //    }
-    //    StartCoroutine(BeginGame());
-    //}
+        gameState = GameState.NewPlay;
+    }
 
     public void OnPlayClick()
     {
         Destroy(GameObject.Find("Menu Canvas"));
-        Instantiate(inGameCanvasPrefab);
-        gameState = GameState.NewPlay;
+        gameState = GameState.Loading;
     }
 }
