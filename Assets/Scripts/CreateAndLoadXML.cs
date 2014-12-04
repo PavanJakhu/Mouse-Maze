@@ -55,101 +55,104 @@ public class CreateAndLoadXML : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        if (GameManager.gameState == GameState.NewPlay || GameManager.gameState == GameState.ResumePlay)
         {
-            gameManager.saved = true;
-            PrefabUtility.CreatePrefab("Assets/Prefabs/Saved/Saved_Maze.prefab", gameManager.MazeInstance.gameObject);
-
-            mazeData.playerPosition.x = gameManager.PlayerInstance.transform.position.x;
-            mazeData.playerPosition.y = gameManager.PlayerInstance.transform.position.y;
-            mazeData.playerPosition.z = gameManager.PlayerInstance.transform.position.z;
-
-            mazeData.endPosition.x = gameManager.EndInstance.transform.position.x;
-            mazeData.endPosition.y = gameManager.EndInstance.transform.position.y;
-            mazeData.endPosition.z = gameManager.EndInstance.transform.position.z;
-
-            if (gameManager.TrapsInstance != null)
+            if (Input.GetKeyDown(KeyCode.O))
             {
-                mazeData.trapPosition.x = gameManager.TrapsInstance.transform.position.x;
-                mazeData.trapPosition.y = gameManager.TrapsInstance.transform.position.y;
-                mazeData.trapPosition.z = gameManager.TrapsInstance.transform.position.z;
+                gameManager.saved = true;
+                PrefabUtility.CreatePrefab("Assets/Prefabs/Saved/Saved_Maze.prefab", gameManager.MazeInstance.gameObject);
+
+                mazeData.playerPosition.x = gameManager.PlayerInstance.transform.position.x;
+                mazeData.playerPosition.y = gameManager.PlayerInstance.transform.position.y;
+                mazeData.playerPosition.z = gameManager.PlayerInstance.transform.position.z;
+
+                mazeData.endPosition.x = gameManager.EndInstance.transform.position.x;
+                mazeData.endPosition.y = gameManager.EndInstance.transform.position.y;
+                mazeData.endPosition.z = gameManager.EndInstance.transform.position.z;
+
+                if (gameManager.TrapsInstance != null)
+                {
+                    mazeData.trapPosition.x = gameManager.TrapsInstance.transform.position.x;
+                    mazeData.trapPosition.y = gameManager.TrapsInstance.transform.position.y;
+                    mazeData.trapPosition.z = gameManager.TrapsInstance.transform.position.z;
+                }
+
+                if (gameManager.CupInstance != null)
+                {
+                    mazeData.cupPosition.x = gameManager.CupInstance.transform.position.x;
+                    mazeData.cupPosition.y = gameManager.CupInstance.transform.position.y;
+                    mazeData.cupPosition.z = gameManager.CupInstance.transform.position.z;
+                }
+
+                if (gameManager.CheeseInstance[0] != null)
+                {
+                    mazeData.cheesePosition.one.x = gameManager.CheeseInstance[0].transform.position.x;
+                    mazeData.cheesePosition.one.y = gameManager.CheeseInstance[0].transform.position.y;
+                    mazeData.cheesePosition.one.z = gameManager.CheeseInstance[0].transform.position.z;
+                }
+
+                if (gameManager.CheeseInstance[1] != null)
+                {
+                    mazeData.cheesePosition.two.x = gameManager.CheeseInstance[1].transform.position.x;
+                    mazeData.cheesePosition.two.y = gameManager.CheeseInstance[1].transform.position.y;
+                    mazeData.cheesePosition.two.z = gameManager.CheeseInstance[1].transform.position.z;
+                }
+
+                if (gameManager.CheeseInstance[2] != null)
+                {
+                    mazeData.cheesePosition.three.x = gameManager.CheeseInstance[2].transform.position.x;
+                    mazeData.cheesePosition.three.y = gameManager.CheeseInstance[2].transform.position.y;
+                    mazeData.cheesePosition.three.z = gameManager.CheeseInstance[2].transform.position.z;
+                }
+
+                if (gameManager.CheeseInstance[3] != null)
+                {
+                    mazeData.cheesePosition.four.x = gameManager.CheeseInstance[3].transform.position.x;
+                    mazeData.cheesePosition.four.y = gameManager.CheeseInstance[3].transform.position.y;
+                    mazeData.cheesePosition.four.z = gameManager.CheeseInstance[3].transform.position.z;
+                }
+
+                if (gameManager.CheeseInstance[4] != null)
+                {
+                    mazeData.cheesePosition.five.x = gameManager.CheeseInstance[4].transform.position.x;
+                    mazeData.cheesePosition.five.y = gameManager.CheeseInstance[4].transform.position.y;
+                    mazeData.cheesePosition.five.z = gameManager.CheeseInstance[4].transform.position.z;
+                }
+
+                if (gameManager.BombInstance[0] != null)
+                {
+                    mazeData.bombPosition.one.x = gameManager.BombInstance[0].transform.position.x;
+                    mazeData.bombPosition.one.y = gameManager.BombInstance[0].transform.position.y;
+                    mazeData.bombPosition.one.z = gameManager.BombInstance[0].transform.position.z;
+                }
+
+                if (gameManager.BombInstance[1] != null)
+                {
+                    mazeData.bombPosition.two.x = gameManager.BombInstance[1].transform.position.x;
+                    mazeData.bombPosition.two.y = gameManager.BombInstance[1].transform.position.y;
+                    mazeData.bombPosition.two.z = gameManager.BombInstance[1].transform.position.z;
+                }
+
+                if (gameManager.BombInstance[2] != null)
+                {
+                    mazeData.bombPosition.three.x = gameManager.BombInstance[2].transform.position.x;
+                    mazeData.bombPosition.three.y = gameManager.BombInstance[2].transform.position.y;
+                    mazeData.bombPosition.three.z = gameManager.BombInstance[2].transform.position.z;
+                }
+
+                if (gameManager.BombInstance[3] != null)
+                {
+                    mazeData.bombPosition.four.x = gameManager.BombInstance[3].transform.position.x;
+                    mazeData.bombPosition.four.y = gameManager.BombInstance[3].transform.position.y;
+                    mazeData.bombPosition.four.z = gameManager.BombInstance[3].transform.position.z;
+                }
+
+                // Create XML based on the UserData Object! 
+                _data = SerializeObject(mazeData);
+
+                // Write to file, resulting XML from  serialization process 
+                CreateXML();
             }
-
-            if (gameManager.CupInstance != null)
-            {
-                mazeData.cupPosition.x = gameManager.CupInstance.transform.position.x;
-                mazeData.cupPosition.y = gameManager.CupInstance.transform.position.y;
-                mazeData.cupPosition.z = gameManager.CupInstance.transform.position.z;
-            }
-
-            if (gameManager.CheeseInstance[0] != null)
-            {
-                mazeData.cheesePosition.one.x = gameManager.CheeseInstance[0].transform.position.x;
-                mazeData.cheesePosition.one.y = gameManager.CheeseInstance[0].transform.position.y;
-                mazeData.cheesePosition.one.z = gameManager.CheeseInstance[0].transform.position.z;
-            }
-
-            if (gameManager.CheeseInstance[1] != null)
-            {
-                mazeData.cheesePosition.two.x = gameManager.CheeseInstance[1].transform.position.x;
-                mazeData.cheesePosition.two.y = gameManager.CheeseInstance[1].transform.position.y;
-                mazeData.cheesePosition.two.z = gameManager.CheeseInstance[1].transform.position.z;
-            }
-
-            if (gameManager.CheeseInstance[2] != null)
-            {
-                mazeData.cheesePosition.three.x = gameManager.CheeseInstance[2].transform.position.x;
-                mazeData.cheesePosition.three.y = gameManager.CheeseInstance[2].transform.position.y;
-                mazeData.cheesePosition.three.z = gameManager.CheeseInstance[2].transform.position.z;
-            }
-
-            if (gameManager.CheeseInstance[3] != null)
-            {
-                mazeData.cheesePosition.four.x = gameManager.CheeseInstance[3].transform.position.x;
-                mazeData.cheesePosition.four.y = gameManager.CheeseInstance[3].transform.position.y;
-                mazeData.cheesePosition.four.z = gameManager.CheeseInstance[3].transform.position.z;
-            }
-
-            if (gameManager.CheeseInstance[4] != null)
-            {
-                mazeData.cheesePosition.five.x = gameManager.CheeseInstance[4].transform.position.x;
-                mazeData.cheesePosition.five.y = gameManager.CheeseInstance[4].transform.position.y;
-                mazeData.cheesePosition.five.z = gameManager.CheeseInstance[4].transform.position.z;
-            }
-
-            if (gameManager.BombInstance[0] != null)
-            {
-                mazeData.bombPosition.one.x = gameManager.BombInstance[0].transform.position.x;
-                mazeData.bombPosition.one.y = gameManager.BombInstance[0].transform.position.y;
-                mazeData.bombPosition.one.z = gameManager.BombInstance[0].transform.position.z;
-            }
-
-            if (gameManager.BombInstance[1] != null)
-            {
-                mazeData.bombPosition.two.x = gameManager.BombInstance[1].transform.position.x;
-                mazeData.bombPosition.two.y = gameManager.BombInstance[1].transform.position.y;
-                mazeData.bombPosition.two.z = gameManager.BombInstance[1].transform.position.z;
-            }
-
-            if (gameManager.BombInstance[2] != null)
-            {
-                mazeData.bombPosition.three.x = gameManager.BombInstance[2].transform.position.x;
-                mazeData.bombPosition.three.y = gameManager.BombInstance[2].transform.position.y;
-                mazeData.bombPosition.three.z = gameManager.BombInstance[2].transform.position.z;
-            }
-
-            if (gameManager.BombInstance[3] != null)
-            {
-                mazeData.bombPosition.four.x = gameManager.BombInstance[3].transform.position.x;
-                mazeData.bombPosition.four.y = gameManager.BombInstance[3].transform.position.y;
-                mazeData.bombPosition.four.z = gameManager.BombInstance[3].transform.position.z;
-            }
-
-            // Create XML based on the UserData Object! 
-            _data = SerializeObject(mazeData);
-
-            // Write to file, resulting XML from  serialization process 
-            CreateXML();
         }
     }
 
