@@ -836,7 +836,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mazePrefab: {fileID: 11400000, guid: a2395bb8a91944f21b621f2614d6db99, type: 2}
-  playerPrefab: {fileID: 11400000, guid: 67d7fa0cfc04f8d4cbc58e90dad0662f, type: 2}
+  playerPrefab: {fileID: 11400000, guid: 99cac87a4b194474c9edf544efa2ba05, type: 2}
   endPrefab: {fileID: 11400000, guid: a20445100efece340b72c03a3975a728, type: 2}
   trapPrefab: {fileID: 11400000, guid: 8110e69b78e939647a1b10325c82ffff, type: 2}
   bombPrefab: {fileID: 11400000, guid: cf1d970a77b0b70428840360465e921b, type: 2}
