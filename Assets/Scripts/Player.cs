@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
     private AnimatorStateInfo layer2CurrentState;	// a reference to the current state of the animator, used for layer 2
     private CapsuleCollider col;					// a reference to the capsule collider of the character
 
-    private AudioSource audioSource;
     private MazeCell currentCell;
     private Text bombText;
     private Text scoreText;
