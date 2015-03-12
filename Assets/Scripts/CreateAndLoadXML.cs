@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -60,7 +62,9 @@ public class CreateAndLoadXML : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.O))
             {
                 gameManager.saved = true;
+#if UNITY_EDITOR
                 PrefabUtility.CreatePrefab("Assets/Prefabs/Saved/Saved_Maze.prefab", gameManager.MazeInstance.gameObject);
+#endif
 
                 mazeData.playerPosition.x = gameManager.PlayerInstance.transform.position.x;
                 mazeData.playerPosition.y = gameManager.PlayerInstance.transform.position.y;

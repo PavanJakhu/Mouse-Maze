@@ -12,7 +12,7 @@ public class Bombs : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.RotateAroundLocal(new Vector3(0.0f, 1.0f, 0.0f), 1 * Time.deltaTime);
+        transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f), 1 * Time.deltaTime);
     }
 
     public void SetLocation(MazeCell cell)

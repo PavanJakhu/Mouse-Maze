@@ -3,7 +3,7 @@ using System.Collections;
 
 public class End : MonoBehaviour
 {
-    private MazeCell currentCell;
+    private MazeCell currentCell = null;
 
     // Use this for initialization
     void Start()
